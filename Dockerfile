@@ -85,11 +85,10 @@ RUN { echo '#!/bin/bash'; \
       echo 'set -e'; \
 	  echo 'export OAUTHLIB_INSECURE_TRANSPORT=1'; \
 	  echo 'export OAUTHLIB_RELAX_TOKEN_SCOPE=1'; \
-      echo 'export FLASK_APPLICATION_SETTINGS=/mnt/config/webhooks3.properties'; \
 	  echo 'echo $(pwd)'; \
-      echo 'python ./application.py'; \
-    } > /entrypoint-webhooks3.sh \
- && chmod +x /entrypoint-webhooks3.sh
+      echo 'python ./application.py --config /mnt/config/snswebhook.properties'; \
+    } > /entrypoint-snswebhook.sh \
+ && chmod +x /entrypoint-snswebhook.sh
 
 EXPOSE 5000
-CMD ["/entrypoint-webhooks3.sh"]
+CMD ["/entrypoint-snswebhook.sh"]
