@@ -1,6 +1,6 @@
 # sns-webhook
 
-The simple sns to webhook service. listens to a specific sns topic and posts to a webhook. The application will expect that a topic exists and will create a SQS queue and subscribe the SNS topic to it automatically. It will also add the policy to the SQS queue automatically *if the config user is allowed to add permissions to a SQS policies"
+The simple sns to webhook service. listens to a specific sns topic and posts to a webhook. The application will expect that a topic exists and will create a SQS queue and subscribe the SNS topic to it automatically. It will also add the policy to the SQS queue automatically *if the config user is allowed to add permissions to a SQS policies*
 
 # Configuration
 
@@ -18,9 +18,7 @@ AWS_ACCESS_KEY_ID=[access_key]
 AWS_SECRET_ACCESS_KEY=[secret]
 AWS_REGION_NAME="us-west-2"
 LOG_LEVEL="INFO"
-AWS_SNS_TOPIC_ARN="arn:aws:sns:us-west-2:604212546939:dronze-qlearn-cf"
 AWS_SNS_TOPIC_NAME="dronze-qlearn-cf"
-AWS_SQS_QUEUE_NAME="dronze-qlearn-cf-q"
 MESSAGE_LOOP_WAIT_SECS=3
 POST_MESSAGE_ENDPOINT="http://ec2-35-167-29-231.us-west-2.compute.amazonaws.com:5020/webhook/notification/T1BGUBKQR/aws-sns/dronze-qlearn-cf"
 ```

@@ -9,6 +9,17 @@ import time
 import signal
 import urllib2
 
+
+# AWS_ACCESS_KEY_ID=[access_key]
+# AWS_SECRET_ACCESS_KEY=[secret]
+# AWS_REGION_NAME="us-west-2"
+# LOG_LEVEL="INFO"
+# AWS_SNS_TOPIC_NAME="dronze-qlearn-cf"
+# AWS_SQS_QUEUE_NAME="dronze-qlearn-cf-q"
+# MESSAGE_LOOP_WAIT_SECS=3
+# POST_MESSAGE_ENDPOINT
+
+
 LOG_FORMAT = ('%(levelname) -10s %(asctime)s %(funcName) '
               '-35s %(lineno) -5d: %(message)s')
 
@@ -146,7 +157,7 @@ def post_message(message, config):
     logging.info("sending message: {0}".format(message_json))
     req = urllib2.Request(config['POST_MESSAGE_ENDPOINT'])
     req.add_header('Content-Type', 'application/json')
-    
+
     try:
         response = urllib2.urlopen(req, message_json)
         logging.info("response: {0}".format(response.read()))
@@ -187,7 +198,8 @@ def main():
     topic = get_sns_topic(sns, config["AWS_SNS_TOPIC_NAME"])
     topic_arn = topic['TopicArn']
 
-    queue = get_sqs_queue(sqs, sns, config["AWS_SQS_QUEUE_NAME"], topic, queue_policy_statement)
+    queue_name = "{0}-q".format(config["AWS_SNS_TOPIC_NAME"])
+    queue = get_sqs_queue(sqs, sns, queue_name, topic, queue_policy_statement)
     queue_arn = get_queue_arn(sqs,queue)
 
     listening = True
